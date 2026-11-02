@@ -1,0 +1,17 @@
+{
+  "name": "52poke-mark",
+  "version": "0.2.0",
+  "private": true,
+  "description": "52poke Firefox progress and annotation extension",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "lint": "web-ext lint --source-dir extension --warnings-as-errors",
+    "build": "node tools/package.cjs",
+    "test:firefox": "node tests/firefox.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "selenium-webdriver": "^4.29.0",
+    "web-ext": "^8.4.0"
+  }
+}

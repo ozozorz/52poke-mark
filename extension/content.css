@@ -1,0 +1,15 @@
+/* All controls live in a shadow root. These spans keep the site's links and handlers intact. */
+span[data-pkm-mark] { border-radius: 2px; box-decoration-break: clone; }
+/* A row mark changes presentation only. No wrappers, layout changes or inline style edits. */
+tr[data-pkm-row] { background-color: #e3e5e8 !important; }
+tr[data-pkm-row] > :is(td, th) {
+  background-color: #e3e5e8 !important;
+  background-image: none !important;
+  filter: grayscale(1) !important;
+}
+tr[data-pkm-row] > :is(td, th),
+tr[data-pkm-row] > :is(td, th) :is(a, span, b, strong, small, p, div) {
+  color: #72777d !important;
+}
+tr[data-pkm-row] > :is(td, th) img { opacity: .6; }
+@media print { #pkm-host { display: none !important; } }

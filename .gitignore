@@ -1,0 +1,51 @@
+# Node.js dependencies and local caches
+node_modules/
+/.local/
+/.npm/
+/.cache/
+
+# Generated extension packages (rebuild from extension/)
+/dist/
+/web-ext-artifacts/
+*.xpi
+
+# Test screenshots, downloaded wiki pages and coverage
+/tests/artifacts/
+/tests/route206.html
+/tests/walkthrough.html
+/coverage/
+/.nyc_output/
+
+# Local environment files and Google OAuth credentials
+.env
+.env.*
+!.env.example
+!.env.template
+client_secret*.json
+credentials.json
+token.json
+tokens.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Personal annotation backups saved to the project root
+/52poke-mark-*.json
+
+# Logs and temporary editor files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+/.idea/
+/.vs/
+
+# Operating system metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Keep extension/, tests/*.cjs, docs/, tools/ and package-lock.json tracked.

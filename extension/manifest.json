@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "52Poké Mark · 攻略标记",
+  "version": "0.2.0",
+  "description": "为神奇宝贝百科标记文字、单元格和攻略步骤，按游戏周目保存进度。",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "52poke-mark@local.example",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {"required": ["none"], "optional": ["authenticationInfo", "browsingActivity", "websiteContent", "websiteActivity"]}
+    }
+  },
+  "permissions": ["storage", "alarms", "identity", "activeTab", "menus"],
+  "host_permissions": ["https://wiki.52poke.com/*"],
+  "optional_host_permissions": ["https://www.googleapis.com/*", "https://oauth2.googleapis.com/*"],
+  "background": {"scripts": ["lib/model.js", "lib/drive.js", "background.js", "menus.js"]},
+  "action": {"default_title": "52Poké Mark", "default_popup": "popup.html", "default_icon": "icons/mark.svg"},
+  "icons": {"48": "icons/mark.svg", "96": "icons/mark.svg"},
+  "options_ui": {"page": "options.html", "open_in_tab": true},
+  "content_scripts": [{
+    "matches": ["https://wiki.52poke.com/*"],
+    "js": ["lib/model.js", "lib/anchors.js", "content.js"],
+    "css": ["content.css"],
+    "run_at": "document_idle"
+  }]
+}

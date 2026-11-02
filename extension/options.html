@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>52Poké Mark · 周目与设置</title><link rel="icon" href="icons/mark.svg"><link rel="stylesheet" href="ui.css"></head>
+<body><main class="shell">
+  <header class="top"><div class="brand"><img src="icons/mark.svg" alt="">52Poké Mark</div><span class="small muted">你的百科，你的冒险进度。</span></header>
+  <div class="eyebrow">YOUR ADVENTURE, REMEMBERED</div>
+  <div class="intro"><div><h1>每一段冒险，都有自己的进度。</h1><p>划掉已完成的步骤，留住下一次出发的线索。</p></div><span class="pill">52poke 专用 · Firefox</span></div>
+  <div id="notice" class="status" role="status" hidden></div>
+  <div class="grid"><div>
+    <section class="card"><div class="card-head"><h2>游戏与周目</h2><span class="number">01</span></div><p class="small">一个周目是一套独立标记，跨页面使用。切换后，所有百科标签页跟随切换。</p>
+      <div class="field"><label for="profile">当前周目</label><select id="profile"></select></div>
+      <div class="stats"><div class="stat"><b id="mark-count">0</b><span>处标记</span></div><div class="stat"><b id="strike-count">0</b><span>处已完成</span></div><div class="stat"><b id="page-count">0</b><span>个页面</span></div></div>
+      <div class="field"><label for="profile-name">周目名称</label><input id="profile-name" maxlength="80" placeholder="例如：明亮珍珠 · 二周目"></div>
+      <div class="row"><button id="new-profile" class="primary">新建空白周目</button><button id="rename-profile">重命名当前周目</button></div>
+    </section>
+    <section class="card"><div class="card-head"><h2>标记偏好</h2><span class="number">02</span></div><p class="small">初始使用删除线。高亮只表示关注，不计入“已完成”；整行变灰计入完成。</p>
+      <div class="field"><label for="style">标记方式</label><select id="style"><option value="strike">删除线 — 划掉已完成的内容</option><option value="underline">下划线 — 保留提示</option><option value="highlight">高亮 — 突出显示</option></select></div>
+      <div class="field"><label for="color">默认颜色</label><select id="color"></select></div>
+      <label>颜色含义（可以自由命名）</label><div id="colors" class="colors"></div><div class="actions"><button id="save-prefs">保存偏好</button></div>
+    </section>
+    <section class="card"><div class="card-head"><h2>这个周目的足迹</h2><span class="number">03</span></div><p class="small">打开原页面，在右下角管理标记和待定位记录。</p><div id="pages"></div></section>
+  </div><div>
+    <section class="card"><div class="card-head"><h2>Google Drive 同步</h2><span class="number">04</span></div><p class="small">本地即时保存；连接后自动合并不同设备的标记和取消记录。联网时约 30 秒后上传，并每 5 分钟检查更新。</p>
+      <div id="sync-status" class="status">本地保存已启用 · Drive 未连接</div>
+      <div class="field"><label for="client-id">OAuth Client ID</label><input id="client-id" autocomplete="off" spellcheck="false" placeholder="….apps.googleusercontent.com"></div>
+      <div class="field"><label for="client-secret">OAuth Client Secret（个人配置）</label><input id="client-secret" type="password" autocomplete="new-password" placeholder="仅保存在此扩展的本机存储中"></div>
+      <div class="row"><button id="connect" class="primary">连接 Google Drive</button><button id="sync">立即同步</button><button id="disconnect">断开并清除凭据</button></div>
+      <div class="divider"></div>
+      <details><summary>首次连接：Google 配置说明</summary><ol>
+        <li>在 <a href="https://console.cloud.google.com/" target="_blank" rel="noreferrer">Google Cloud</a> 创建个人项目，启用 Google Drive API。配置 Google Auth Platform 的受众与同意屏幕，测试阶段把自己的 Google 账号加入测试用户。</li>
+        <li>创建“Web 应用”OAuth 客户端，把下方地址完整加入“已获授权的重定向 URI”。</li>
+        <li><code id="redirect"></code> <button id="copy-redirect">复制地址</button></li>
+        <li>将 Client ID 与 Client Secret 填入上方，点击连接。在每台设备使用同一项目、同一客户端和同一 Google 账号。</li>
+        <li>这是自用版配置：客户端凭据保存在本机，使用授权码与 PKCE。不要把 Secret 放入源码、安装包或分享给别人。公开发布时应改为服务端保管 Secret。</li>
+      </ol><p>只申请 <code>drive.appdata</code>，标记保存在本应用的隐藏数据目录，不读取其他 Drive 文件。若测试授权过期，请重新连接。断开连接保留云端备份；可在 Google 账号的第三方连接中撤销授权。</p></details>
+    </section>
+    <section class="card"><div class="card-head"><h2>备份与恢复</h2><span class="number">05</span></div><p class="small">导出包含全部周目与标记，不包含 Google 凭据。导入会合并记录，保留更新的版本。</p><div class="row"><button id="export">导出全部备份</button><button id="choose-import">选择备份文件</button><input id="import-file" type="file" accept="application/json,.json" hidden></div><div id="import-preview" class="field" hidden><div id="import-summary" class="status pending"></div><div class="actions"><button id="confirm-import" class="primary">合并这份备份</button><button id="cancel-import">取消</button></div></div></section>
+    <section class="card"><h2>从一格开始</h2><p class="small">右键单元格，在“52Poké Mark”菜单中选择“标记单格”或“整行变灰”。选中文字后右键可标记选区；右键列表项可标记步骤。需要换样式或颜色时，选择“调整样式与颜色…”。鼠标经过和选中文字都不会自动弹出工具条。</p><p class="small">再次应用相同标记可取消；右下角面板提供撤销和标记列表。链接、版本切换、折叠保持可用。页面变化后无法可靠匹配的标记会显示“待定位”，可重新指定位置。</p><div class="row"><a class="button" href="https://wiki.52poke.com/zh-hans/附录:寶可夢_晶燦鑽石／明亮珍珠流程" target="_blank" rel="noreferrer">打开晶钻 / 明珠流程 ↗</a></div></section>
+  </div></div><footer>52Poké Mark 0.2.0 · 非官方扩展 · 不含分析、广告或远程脚本。</footer>
+</main><script src="lib/model.js"></script><script src="ui.js"></script><script src="options.js"></script></body></html>
